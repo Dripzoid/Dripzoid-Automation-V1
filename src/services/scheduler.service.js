@@ -9,9 +9,22 @@ const backend = axios.create({
 });
 
 export async function getPendingTasks() {
+  try {
   const { data } = await backend.get(
     "/api/internal/automation/scheduler/scheduled-tasks/pending"
   );
+
+  return data.tasks;
+} catch (error) {
+  console.log("URL:", error.config?.url);
+  console.log("BASE_URL:", error.config?.baseURL);
+  console.log(
+    "RESPONSE:",
+    error.response?.data
+  );
+
+  throw error;
+}
 
   return data.tasks;
 }
