@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import app from "./app.js";
+import { startRetryScheduler } from "./schedulers/retry.scheduler.js";
 
 dotenv.config();
 
@@ -9,4 +10,5 @@ app.listen(PORT, () => {
   console.log(
     `🚀 Dripzoid Automation running on port ${PORT}`
   );
+  startRetryScheduler();
 });
