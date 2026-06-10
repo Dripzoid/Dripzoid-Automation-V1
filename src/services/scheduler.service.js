@@ -21,7 +21,7 @@ export async function updateTask(
   payload
 ) {
   const { data } = await backend.patch(
-    `/api/internal/automation/scheduler/scheduled-tasks/${taskId}`,
+    `/api/automation/scheduler/scheduled-tasks/${taskId}`,
     payload
   );
 
@@ -32,7 +32,7 @@ export async function createLog(
   payload
 ) {
   const { data } = await backend.post(
-    "/api/internal/automation/scheduler/automation-logs",
+    "/api/automation/scheduler/automation-logs",
     payload
   );
 
