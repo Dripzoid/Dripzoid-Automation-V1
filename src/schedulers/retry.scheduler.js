@@ -10,6 +10,7 @@ import { processEvent }
   from "../services/event.service.js";
 
 export function startRetryScheduler() {
+  console.log("🔄 Retry Scheduler Started");
   cron.schedule("*/5 * * * *", async () => {
     console.log(
       "🔄 Running Retry Scheduler"
