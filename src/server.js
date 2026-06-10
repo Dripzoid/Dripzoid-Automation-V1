@@ -10,9 +10,5 @@ app.listen(PORT, () => {
   console.log(
     `🚀 Dripzoid Automation running on port ${PORT}`
   );
-  console.log("Before scheduler");
-
 startRetryScheduler();
-
-console.log("After scheduler");
 });
