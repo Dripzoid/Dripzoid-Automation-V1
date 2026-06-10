@@ -33,7 +33,13 @@ export function startRetryScheduler() {
             eventType,
             payload,
           } = task.payload;
+          console.log(
+  "TASK PAYLOAD:",
+  JSON.stringify(task.payload, null, 2)
+);
 
+console.log("eventType:", eventType);
+console.log("payload:", payload);
           await processEvent(
             eventType,
             payload
