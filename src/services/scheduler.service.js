@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const backend = axios.create({
-  baseURL: process.env.BACKEND_URL,
+  baseURL: process.env.DRIPZOID_BACKEND_URL,
   headers: {
     "x-internal-key":
       process.env.INTERNAL_API_KEY,
