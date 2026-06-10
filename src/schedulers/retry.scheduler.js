@@ -7,7 +7,7 @@ import {
 } from "../services/scheduler.service.js";
 
 import { processEvent }
-  from "../services/eventProcessor.service.js";
+  from "../services/event.service.js";
 
 export function startRetryScheduler() {
   cron.schedule("*/5 * * * *", async () => {
