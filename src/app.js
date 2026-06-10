@@ -30,5 +30,13 @@ app.use(
 
 app.use("/health", healthRoutes);
 app.use("/api/events", eventRoutes);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    service: "Dripzoid Automation",
+    version: "v1",
+    status: "running",
+  });
+});
 
 export default app;
