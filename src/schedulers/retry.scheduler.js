@@ -2,6 +2,7 @@ import cron from "node-cron";
 
 import {
   getPendingAutomationEvents,
+  getAutomationEventById,
   updateAutomationEvent,
 } from "../services/scheduler.service.js";
 
@@ -30,7 +31,22 @@ export function startRetryScheduler() {
         );
 
         for (const event of events) {
+          let latestEvent = null;
+
           try {
+            latestEvent =
+              await getAutomationEventById(
+                event.id
+              );
+
+            if (
+              !latestEvent ||
+              latestEvent.status !==
+                "pending"
+            ) {
+              continue;
+            }
+
             console.log(
               `🚀 Retrying ${event.eventType}`
             );
@@ -39,8 +55,11 @@ export function startRetryScheduler() {
               await processEvent({
                 eventType:
                   event.eventType,
-                payload:
-                  event.payload,
+                payload: {
+                  automationEventId:
+                    event.id,
+                  ...event.payload,
+                },
               });
 
             if (
@@ -60,6 +79,7 @@ export function startRetryScheduler() {
                 processedAt:
                   new Date(),
                 lastError: null,
+                retryCount: 0,
               }
             );
 
@@ -68,7 +88,8 @@ export function startRetryScheduler() {
             );
           } catch (error) {
             const retries =
-              event.retryCount + 1;
+              (latestEvent?.retryCount ||
+                0) + 1;
 
             console.error(
               `❌ Event ${event.id} failed`,
