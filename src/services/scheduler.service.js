@@ -1,40 +1,31 @@
 import axios from "axios";
 
 const backend = axios.create({
-  baseURL: process.env.DRIPZOID_BACKEND_URL,
+  baseURL:
+    process.env.DRIPZOID_BACKEND_URL,
+
   headers: {
     "x-internal-key":
       process.env.INTERNAL_API_KEY,
   },
 });
 
-export async function getPendingTasks() {
+export async function getPendingAutomationEvents() {
   const { data } = await backend.get(
-    "/api/automation/scheduler/scheduled-tasks/pending"
+    "/api/automation/scheduler/automation-events/pending"
   );
 
-  return data.tasks;
+  return data.events;
 }
 
-export async function updateTask(
-  taskId,
+export async function updateAutomationEvent(
+  eventId,
   payload
 ) {
   const { data } = await backend.patch(
-    `/api/automation/scheduler/scheduled-tasks/${taskId}`,
+    `/api/automation/scheduler/automation-events/${eventId}`,
     payload
   );
 
-  return data.task;
-}
-
-export async function createLog(
-  payload
-) {
-  const { data } = await backend.post(
-    "/api/automation/scheduler/automation-logs",
-    payload
-  );
-
-  return data.log;
+  return data.event;
 }
