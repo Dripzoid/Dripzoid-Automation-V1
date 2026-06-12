@@ -10,22 +10,47 @@ const backend = axios.create({
   },
 });
 
+/* ==========================================
+   GET PENDING AUTOMATION EVENTS
+========================================== */
+
 export async function getPendingAutomationEvents() {
-  const { data } = await backend.get(
-    "/api/automation/scheduler/automation-events/pending"
-  );
+  const { data } =
+    await backend.get(
+      "/api/automation/scheduler/automation-events/pending"
+    );
 
   return data.events;
 }
+
+/* ==========================================
+   GET SINGLE AUTOMATION EVENT
+========================================== */
+
+export async function getAutomationEventById(
+  eventId
+) {
+  const { data } =
+    await backend.get(
+      `/api/automation/scheduler/automation-events/${eventId}`
+    );
+
+  return data.event;
+}
+
+/* ==========================================
+   UPDATE AUTOMATION EVENT
+========================================== */
 
 export async function updateAutomationEvent(
   eventId,
   payload
 ) {
-  const { data } = await backend.patch(
-    `/api/automation/scheduler/automation-events/${eventId}`,
-    payload
-  );
+  const { data } =
+    await backend.patch(
+      `/api/automation/scheduler/automation-events/${eventId}`,
+      payload
+    );
 
   return data.event;
 }
